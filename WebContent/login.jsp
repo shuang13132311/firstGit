@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>通过git修改title</title>
+<title>通过git修改title2</title>
 </head>
 <script type="text/javascript">
 	function toRegister(){
