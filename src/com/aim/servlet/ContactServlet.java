@@ -18,7 +18,7 @@ import com.aim.service.impl.ContactServiceImpl;
 /**
  * Servlet implementation class ContactServlet
  */
-@WebServlet("/ContactServlet")
+//@WebServlet("/ContactServlet")
 public class ContactServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -32,6 +32,12 @@ public class ContactServlet extends HttpServlet {
 		String method = request.getParameter("method");
 		if("addContact".equals(method)){
 			addContact(request, response);
+		}else if("selectContactById".equals(method)){
+			selectContactById(request, response);
+		}else if("updateContact".equals(method)){
+			updateContact(request, response);
+		}else if("deleteContactById".equals(method)){
+			deleteContactById(request, response);
 		}
 		
 		
@@ -63,14 +69,65 @@ public class ContactServlet extends HttpServlet {
 		}
 	}
 	
-/*	protected void selectAllContact(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {				
-		//获取userId
-		HttpSession session = request.getSession(false);
-		User user = (User)session.getAttribute("user");
-		int userId = user.getUserId();
-		List<Contact> contactList = contactService.seleceAllContactByUserId(userId);
-		request.setAttribute("contactList", contactList);
-		System.out.println("selectAllContact11111");
+	protected void selectContactById(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String contactId = request.getParameter("contactId");
+		int contactIdNew = Integer.valueOf(contactId);
+		Contact contact = contactService.selectContactById(contactIdNew);
+		if(contact != null){
+			//查询到当前contact，将信息存到request中，并转发到修改contact界面
+			System.out.println("查询到contact");
+			request.setAttribute("contact", contact);
+			request.getRequestDispatcher("contact/updateContact.jsp").forward(request, response);
+		}else{
+			//查询失败
+		}
+		
+		
 	}
-*/
+	
+	protected void updateContact(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String contactId = request.getParameter("contactId");
+		int contactIdNew = Integer.valueOf(contactId);
+		String contactName = request.getParameter("contactName");
+		String contactSex = request.getParameter("contactSex");
+		String contactPhone = request.getParameter("contactPhone");
+		String userId = request.getParameter("userId");
+		int userIdNew = Integer.valueOf(userId);
+		Contact contact = new Contact();
+		contact.setContactId(contactIdNew);
+		contact.setContactName(contactName);
+		contact.setContactSex(contactSex);
+		contact.setContactPhone(contactPhone);
+		
+		Boolean flag = contactService.updateContact(contact);
+		if(flag == true){
+			//修改成功
+			System.out.println("修改成功");
+			List<Contact> contactList = contactService.seleceAllContactByUserId(userIdNew);
+			request.setAttribute("contactList", contactList);
+			request.getRequestDispatcher("index.jsp").forward(request, response);
+		}
+		
+		
+	}
+	
+	protected void deleteContactById(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String contactId = request.getParameter("contactId");
+		String userId = request.getParameter("userId");
+		int userIdNew = Integer.valueOf(userId);
+		int contactIdNew = Integer.valueOf(contactId);
+		boolean flag = contactService.deleteContactById(contactIdNew);
+		if(flag == true){
+			//删除成功
+			System.out.println("删除成功");
+			List<Contact> contactList = contactService.seleceAllContactByUserId(userIdNew);
+			request.setAttribute("contactList", contactList);
+			request.getRequestDispatcher("index.jsp").forward(request, response);
+		}else{
+			//查询失败
+		}
+		
+		
+	}
+	
 }

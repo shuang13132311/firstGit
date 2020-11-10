@@ -25,8 +25,8 @@
 			<td>${contact.contactSex }</td>
 			<td>${contact.contactPhone }</td>
 			<td>
-				<a href="Coontact">编辑</a> <!-- 访问servlet查询到当前contact对象，并跳转到update界面进行修改 -->
-				<a href="ContactServlet?method=deleteContact&contactId={contact.contactId }">删除</a>			
+				<a href="ContactServlet?method=selectContactById&contactId=${contact.contactId }">编辑</a> <!-- 访问servlet查询到当前contact对象，并跳转到update界面进行修改 -->
+				<a href="ContactServlet?method=deleteContactById&contactId=${contact.contactId }&userId=${contact.userId }">删除</a>			
 			</td>
 		</tr>					
 		</c:forEach>

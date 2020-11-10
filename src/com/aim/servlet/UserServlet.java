@@ -20,7 +20,7 @@ import com.aim.service.impl.UserServiceImpl;
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet("/UserServlet")
+//@WebServlet("/UserServlet")
 public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -29,8 +29,7 @@ public class UserServlet extends HttpServlet {
 	UserService userService = new UserServiceImpl();
 	ContactService contactService = new ContactServiceImpl();
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		
+		//request.setCharacterEncoding("UTF-8");
 		String method = request.getParameter("method");
 		if("login".equals(method)){
 			login(request, response);
@@ -40,11 +39,10 @@ public class UserServlet extends HttpServlet {
 		
 	}
 	
-	protected void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("had entered login method");
-		
+	protected void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		String userName = request.getParameter("userName");
 		String userPassword = request.getParameter("userPassword");
+		System.out.println(userName);
 		User user = userService.login(userName, userPassword);
 		if(user != null){
 			//将登陆用户信息存储到session
@@ -83,7 +81,7 @@ public class UserServlet extends HttpServlet {
 		boolean flag = userService.addUser(user);
 		if(flag == true){
 			//注册成功
-			response.sendRedirect(request.getContextPath()+"/index.jsp");    		//路径地址会变，刷新流畅
+			response.sendRedirect(request.getContextPath()+"/login.jsp");    		//路径地址会变，刷新流畅
 		}else {
 			//登陆失败，让浏览器弹出提示框，用户名已被注册
 			//

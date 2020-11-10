@@ -20,9 +20,9 @@ public class ContactServiceImpl implements ContactService {
 	}
 
 	@Override
-	public Contact selectContactById(String contactId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Contact selectContactById(int contactId) {
+		Contact contact = contactDao.selectContactById(contactId);
+		return contact;
 	}
 
 	@Override
@@ -32,15 +32,16 @@ public class ContactServiceImpl implements ContactService {
 	}
 
 	@Override
-	public boolean updateContact() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateContact(Contact contact) {
+		Boolean flag = contactDao.updateContact(contact);
+		return flag;
 	}
 
 	@Override
-	public boolean deleteContact() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean deleteContactById(int contactId) {
+		Boolean flag = contactDao.deleteContactById(contactId);
+		return flag;
 	}
 
+	
 }

@@ -26,7 +26,7 @@
 </script>
 
 <body>
-	<form action="UserServlet?method=register" method="post">
+	<form action="userServlet.do?method=register" method="post">
 		请输入账户:		<input type="text" name="userName"><br />
 		请输入密码:		<input type="password" name="userPassword" id="p1">
 		请再次请输入密码:	<input type="password" id="p2"><br />

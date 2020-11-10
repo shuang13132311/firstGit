@@ -13,7 +13,7 @@
 
 </script>
 <body>
-		<form action="${pageContext.request.contextPath}/UserServlet?method=login" method="post">
+		<form action="${pageContext.request.contextPath}/userServlet.do?method=login" method="post">
 			用户名:	<input type="text" name="userName">
 			密   码:	<input type="password" name="userPassword">
 					<input type="submit" value="登陆"><br />

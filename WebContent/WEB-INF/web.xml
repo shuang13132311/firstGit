@@ -1,12 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
-  <display-name>1DemoTest</display-name>
+  <display-name>firstGit</display-name>
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>login.html</welcome-file>
+    <welcome-file>login.htm</welcome-file>
+    <welcome-file>login.jsp</welcome-file>
     <welcome-file>default.html</welcome-file>
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  <!-- 配置UserServlet信息 -->
+  <servlet>
+  		<servlet-name>UserServlet</servlet-name>
+  		<servlet-class>com.aim.servlet.UserServlet</servlet-class>	
+  </servlet>
+  <servlet-mapping>
+  		<servlet-name>UserServlet</servlet-name>
+  		<!-- 通过浏览器访问 -->
+  		<url-pattern>/userServlet.do</url-pattern>  <!-- 映射一个可供客户端(浏览器)访问的URI  "/"不能少，名字随意定义 -->
+  </servlet-mapping>
+  
+  <!-- 配置ContactServlet信息 -->
+  <servlet>
+  		<servlet-name>ContactServlet</servlet-name>
+  		<servlet-class>com.aim.servlet.ContactServlet</servlet-class>	
+  </servlet>
+  <servlet-mapping>
+  		<servlet-name>ContactServlet</servlet-name>
+  		<!-- 通过浏览器访问 -->
+  		<url-pattern>/ContactServlet</url-pattern>
+  </servlet-mapping>
+  
+  
+  <!-- 配置编码过滤器filter信息 -->
+  <filter>
+    <filter-name>encodingFilter</filter-name>  <!-- //过滤器名称 -->
+    <filter-class>com.aim.filter.EncodingFilter</filter-class> <!--  //绑定类 -->
+    <!--  <async-supported>true</async-supported> -->
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>  <!-- //编码格式 -->
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern> <!--  //要过滤的路径 -->
+  </filter-mapping>
+  
+
 </web-app>

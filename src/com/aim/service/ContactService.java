@@ -7,12 +7,12 @@ import com.aim.entity.Contact;
 public interface ContactService {
 	public boolean addContact(Contact contact);
 	
-	public Contact selectContactById(String contactId);
+	public Contact selectContactById(int contactId);
 	
 	public List<Contact> seleceAllContactByUserId(int userId);
 	
-	public boolean updateContact();
+	public boolean updateContact(Contact contact);
 	
-	public boolean deleteContact();
+	public boolean deleteContactById(int contactId);
 	
 }

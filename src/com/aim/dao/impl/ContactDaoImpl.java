@@ -39,9 +39,28 @@ public class ContactDaoImpl implements ContactDao {
 	}
 
 	@Override
-	public Contact selectContactById(String contactId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Contact selectContactById(int contactId) {
+		Connection conn = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		Contact contact = new Contact();
+		try {
+			conn = DBUtils.getConn();
+			String sql = "select * from t_contact where contact_id = ?";
+			pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, contactId);
+			rs = pstm.executeQuery();
+			if(rs.next()){
+				contact.setContactId(rs.getInt(1));
+				contact.setContactName(rs.getString(2));
+				contact.setContactSex(rs.getString(3));
+				contact.setContactPhone(rs.getString(4));
+				contact.setUserId(rs.getInt(5));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return contact;
 	}
 
 	@Override
@@ -63,6 +82,7 @@ public class ContactDaoImpl implements ContactDao {
 				contact.setContactName(rs.getString(2));
 				contact.setContactSex(rs.getString(3));
 				contact.setContactPhone(rs.getString(4));
+				contact.setUserId(rs.getInt(5));
 				list.add(contact);
 			}
 		} catch (Exception e) {
@@ -72,15 +92,52 @@ public class ContactDaoImpl implements ContactDao {
 	}
 
 	@Override
-	public boolean updateContact() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateContact(Contact contact) {
+		Connection conn = null; 
+		PreparedStatement pstm = null;
+		Boolean flag = false;
+		try {
+			conn = DBUtils.getConn();
+			String sql = "update t_contact set contact_name = ?,contact_sex = ?,contact_phone = ? where contact_id = ?";
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, contact.getContactName());
+			pstm.setString(2, contact.getContactSex());
+			pstm.setString(3, contact.getContactPhone());
+			pstm.setInt(4, contact.getContactId());
+			int result = pstm.executeUpdate();
+			if(result != 0){
+				//修改成功
+				flag = true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
 	}
 
 	@Override
-	public boolean deleteContact() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean deleteContactById(int contactId) {
+		Connection conn = null;
+		PreparedStatement pstm = null;
+		Boolean flag = false;
+		try {
+			conn = DBUtils.getConn();
+			String sql = "delete t_contact where contact_id = ? ";
+			pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, contactId);
+			int result = pstm.executeUpdate();
+			if(result != 0){
+				//删除成功
+				flag = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return flag;
 	}
+
+	
 
 }
